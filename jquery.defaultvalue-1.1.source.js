@@ -1,44 +1,60 @@
-(function($){
-     $.fn.extend({
+/**
+*	@name							Defaultvalue
+*	@descripton						
+*	@version						1.1
+*	@requires						Jquery 1.2.6+
+*	@author							Jan Jarfalk jan.jarfalk@unwrongest.com
+*	@licens							MIT License - http://www.opensource.org/licenses/mit-license.php
+*
+*	@param {String} str				The inputs default value
+*/
+
+(function(jQuery){
+     jQuery.fn.extend({
          defaultValue: function(str) {	
             return this.each(function() {
-				var defaultValue = str || $(this).attr('rel');
-				var defaultType = $(this).attr('type') || null;
-				var cloneId = null;
 				
-				var self = $(this);
+				var $input			=	$(this),
+					defaultValue	=	str || $input.attr('rel');
+					
+				
+				if( $input.attr('type') == 'password' ) {
+					
+					// Create clone and switch
+					var $clone = createClone();
+					$clone.insertAfter($input);
+					$input.hide();
+					
+					// Events for password fields
+					$input.blur(function(){
+						if($input.val().length <= 0){
+							$clone.show();
+							$input.hide();
+						}
+					});
+					
+				} else {
+					
+					// Events for non-password fields
+					$input.keypress( function () {
+						if( $input.val().length > 0 ) {
+							setState(this);
+						}
+					}).blur( function () {
+							setState(this);
+					}).focus( function () {
+						if( $input.val() == defaultValue ) {
+							$input.val('');
+						}
+					});
 
-				if(defaultType == 'password'){
-					createClone(this);
-					
-					$(this).blur(function(){
-						if($(self).val().length <= 0){
-								$('#'+cloneId).show();
-								$(self).hide();
-							}
-					});
-					
-				}
-				else{
-					$(this).click(function(){
-						if($(this).val() == defaultValue){
-							$(this).val('');
-							}
-					}).keypress(function(){
-						if($(this).val().length > 0){
-							setState(this);
-							}
-					}).blur(function(){
-							setState(this);
-					}).focus(function(){
-						if($(this).val() == defaultValue){
-							$(this).val('');
-							}
-					});
-					
-					$.trim($(this).val());
 					setState(this);
 				}
+				
+				// Remove default values from fields on submit
+				$input.closest("form").submit(function() {
+  					$input.val() == defaultValue && $input.val('');
+				});
 
 				
 				function setState(element){
@@ -51,17 +67,26 @@
 					}
 				}
 				
-				function createClone(element){		
-					cloneId = $(element).attr('id')+'Clone';
-
-					$("<input id='" + cloneId + "' type='text' />").attr('value',defaultValue).insertAfter(element).show().focus(function(){
+				
+				// Create a text clone of password fields.
+				function createClone(){
+					
+					var $el = $("<input type='text' />").attr({
+						'value'	: defaultValue,
+						'class'	: $input.attr('class')+' empty',
+						'style'	: $input.attr('style')
+					});
+					
+					$el.focus(function(){
 						$(this).hide();
-						$(self).show();
-						setTimeout(function() {
-							$(self).focus();
-						}, 10);
-					}).addClass($(element).attr('class')+' empty').attr('style',$(element).attr('style'));
-					$(self).hide();
+						$input.show();
+						
+						// Internet Explorer needs some extra time.	
+						setTimeout(function() { $input.focus(); }, 10);
+					
+					});
+								
+					return $el;
 				}
 				
             });
