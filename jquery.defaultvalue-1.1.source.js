@@ -19,7 +19,13 @@
 					
 				
 				if( $input.attr('type') == 'password' ) {
-					
+					handlePasswordInput();	
+				} else {
+					handleTextInputs();
+				}
+				
+				function handlePasswordInput(){
+				
 					// Create clone and switch
 					var $clone = createClone();
 					$clone.insertAfter($input);
@@ -33,15 +39,17 @@
 						}
 					});
 					
-				} else {
-					
+				}
+				
+				function handleTextInputs(){
+				
 					// Events for non-password fields
 					$input.keypress( function () {
 						if( $input.val().length > 0 ) {
 							setState(this);
 						}
 					}).blur( function () {
-							setState(this);
+						setState(this);
 					}).focus( function () {
 						$input.val() == defaultValue && $input.val('');
 					});
@@ -65,7 +73,7 @@
 				}
 				
 				
-				// Create a text clone of password fields.
+				// Create a text clone of password fields
 				function createClone(){
 					
 					var $el = $("<input />").attr({
@@ -76,6 +84,8 @@
 					});
 					
 					$el.focus(function(){
+					
+						// Hide text clone and show real password field
 						$el.hide();
 						$input.show();
 						
