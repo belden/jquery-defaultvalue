@@ -58,11 +58,10 @@
 				}
 				
 				function setState(element){
-					val = $.trim($(element).val());
+					val = jQuery.trim($(element).val());
 					if(val.length <= 0 || val == defaultValue) {
 						$(element).val(defaultValue).addClass('empty');
-					}
-					else {
+					} else {
 						$(element).removeClass('empty');
 					}
 				}
@@ -71,18 +70,19 @@
 				// Create a text clone of password fields.
 				function createClone(){
 					
-					var $el = $("<input type='text' />").attr({
+					var $el = $("<input />").attr({
+						'type'	: 'text',
 						'value'	: defaultValue,
 						'class'	: $input.attr('class')+' empty',
 						'style'	: $input.attr('style')
 					});
 					
 					$el.focus(function(){
-						$(this).hide();
+						$el.hide();
 						$input.show();
 						
-						// Internet Explorer needs some extra time.	
-						setTimeout(function() { $input.focus(); }, 10);
+						// Webkit and Moz need some extra time
+						setTimeout(function () { $input.focus(); }, 10);
 					
 					});
 								
