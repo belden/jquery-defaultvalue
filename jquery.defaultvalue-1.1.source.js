@@ -6,7 +6,7 @@
 *	@author							Jan Jarfalk jan.jarfalk@unwrongest.com
 *	@licens							MIT License - http://www.opensource.org/licenses/mit-license.php
 *
-*	@param {String} str				The inputs default value
+*	@param {String} str				The default value
 */
 
 (function(jQuery){
@@ -49,13 +49,13 @@
 					});
 
 					setState(this);
+					
+					// Remove default values from fields on submit
+					$input.closest("form").submit(function() {
+  						$input.val() == defaultValue && $input.val('');
+					});
+					
 				}
-				
-				// Remove default values from fields on submit
-				$input.closest("form").submit(function() {
-  					$input.val() == defaultValue && $input.val('');
-				});
-
 				
 				function setState(element){
 					val = $.trim($(element).val());
