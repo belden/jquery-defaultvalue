@@ -43,9 +43,7 @@
 					}).blur( function () {
 							setState(this);
 					}).focus( function () {
-						if( $input.val() == defaultValue ) {
-							$input.val('');
-						}
+						$input.val() == defaultValue && $input.val('');
 					});
 
 					setState(this);
