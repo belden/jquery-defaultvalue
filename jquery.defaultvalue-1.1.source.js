@@ -54,7 +54,7 @@
 						$input.val() == defaultValue && $input.val('');
 					});
 
-					setState(this);
+					setState();
 					
 					// Remove default values from fields on submit
 					$input.closest("form").submit(function() {
@@ -63,12 +63,12 @@
 					
 				}
 				
-				function setState(element){
-					val = jQuery.trim($(element).val());
+				function setState(){
+					val = jQuery.trim($input.val());
 					if(val.length <= 0 || val == defaultValue) {
-						$(element).val(defaultValue).addClass('empty');
+						$input.val(defaultValue).addClass('empty');
 					} else {
-						$(element).removeClass('empty');
+						$input.removeClass('empty');
 					}
 				}
 				
@@ -76,7 +76,7 @@
 				// Create a text clone of password fields
 				function createClone(){
 					
-					var $el = $("<input />").attr({
+					var $el = jQuery("<input />").attr({
 						'type'	: 'text',
 						'value'	: defaultValue,
 						'class'	: $input.attr('class')+' empty',
