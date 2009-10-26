@@ -17,7 +17,7 @@
 				var $input			=	$(this),
 					defaultValue	=	str || $input.attr('rel');
 					
-				
+					
 				if( $input.attr('type') == 'password' ) {
 					handlePasswordInput();	
 				} else {
@@ -80,7 +80,8 @@
 						'type'	: 'text',
 						'value'	: defaultValue,
 						'class'	: $input.attr('class')+' empty',
-						'style'	: $input.attr('style')
+						'style'	: $input.attr('style'),
+						'tabindex' : $input.attr('tabindex')
 					});
 					
 					$el.focus(function(){
