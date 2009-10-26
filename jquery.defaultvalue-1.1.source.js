@@ -33,7 +33,7 @@
 					
 					// Events for password fields
 					$input.blur(function(){
-						if($input.val().length <= 0){
+						if( $input.val().length <= 0 ){
 							$clone.show();
 							$input.hide();
 						}
@@ -42,19 +42,18 @@
 				}
 				
 				function handleTextInputs(){
-				
+					
+					// Set current state
+					setState();
+					
 					// Events for non-password fields
 					$input.keypress( function () {
 						if( $input.val().length > 0 ) {
-							setState(this);
+							setState();
 						}
-					}).blur( function () {
-						setState(this);
-					}).focus( function () {
+					}).blur(setState).focus( function () {
 						$input.val() == defaultValue && $input.val('');
 					});
-
-					setState();
 					
 					// Remove default values from fields on submit
 					$input.closest("form").submit(function() {
@@ -65,7 +64,7 @@
 				
 				function setState(){
 					val = jQuery.trim($input.val());
-					if(val.length <= 0 || val == defaultValue) {
+					if( val.length <= 0 || val == defaultValue ) {
 						$input.val(defaultValue).addClass('empty');
 					} else {
 						$input.removeClass('empty');
@@ -91,7 +90,10 @@
 						$input.show();
 						
 						// Webkit and Moz need some extra time
-						setTimeout(function () { $input.focus(); }, 10);
+						// BTW $input.show(0,function(){$input.focus();}); doesn't work.
+						setTimeout(function () {
+							$input.focus();
+						}, 1);
 					
 					});
 								
