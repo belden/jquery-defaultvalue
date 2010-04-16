@@ -29,14 +29,12 @@
 		</div>
 
 		<script src="dependencies/jquery-1.3.2.js" type="text/javascript" charset="utf-8"></script>
-		<script src="jquery.defaultvalue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jquery.defaultvalue.source.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			// <![CDATA[
 			$(document).ready(function(){			
 				$('#username').defaultValue('John Doe');
-				$('#password').defaultValue('Something secret',function(d){
-					alert(data);
-				});
+				$('#password').defaultValue('Something secret');
 				$('#desc').defaultValue('Keep it short...');
 			});	
 			// ]]>

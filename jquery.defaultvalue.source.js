@@ -24,53 +24,22 @@
 					callbackArguments 	=	{'input':$input};
 					
 					
-				if( $input.attr('type') == 'password' ) {
-					handlePasswordInput();
-				} else {
-					handleTextInputs();
-				}
+				// Create clone and switch
+				var $clone = createClone();
 				
-				function handlePasswordInput(){
+				// Add clone to callback arguments
+				callbackArguments.clone = $clone;
 				
-					// Create clone and switch
-					var $clone = createClone();
-					
-					// Add clone to callback arguments
-					callbackArguments.clone = $clone;
-					
-					$clone.insertAfter($input);
-					$input.hide();
-					
-					// Events for password fields
-					$input.blur(function(){
-						if( $input.val().length <= 0 ){
-							$clone.show();
-							$input.hide();
-						}
-					});
-					
-				}
+				$clone.insertAfter($input);
+				$input.hide();
 				
-				function handleTextInputs(){
-					
-					// Set current state
-					setState();
-					
-					// Events for non-password fields
-					$input.keyup( function () {
-						if( $input.val().length > 0 ) {
-							setState();
-						}
-					}).blur(setState).focus( function () {
-						$input.val() == defaultValue && $input.val('');
-					});
-					
-					// Remove default values from fields on submit
-					$input.closest("form").submit(function() {
-  						$input.val() == defaultValue && $input.val('');
-					});
-					
-				}
+				// Events for password fields
+				$input.blur(function(){
+					if( $input.val().length <= 0 ){
+						$clone.show();
+						$input.hide();
+					}
+				});
 				
 				function setState(){
 					val = jQuery.trim($input.val());
@@ -83,11 +52,20 @@
 				}
 				
 				
-				// Create a text clone of password fields
+				// Create a input element clone
 				function createClone(){
 					
-					var $el = jQuery("<input />").attr({
-						'type'	: 'text',
+					var $el;
+					
+					if($input.context.nodeName.toLowerCase() == 'input') {
+						$el = jQuery("<input />").attr({
+							'type'	: 'text'
+						});
+					} else if($input.context.nodeName.toLowerCase() == 'textarea') {
+						$el = jQuery("<textarea />").attr();					
+					}
+					
+					$el.attr({
 						'value'	: defaultValue,
 						'class'	: $input.attr('class')+' empty',
 						'style'	: $input.attr('style'),
