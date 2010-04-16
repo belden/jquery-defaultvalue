@@ -1,7 +1,7 @@
 /**
 *	@name							Defaultvalue
 *	@descripton						Gives value to empty inputs
-*	@version						1.2
+*	@version						1.3
 *	@requires						Jquery 1.3.2
 *
 *	@author							Jan Jarfalk
