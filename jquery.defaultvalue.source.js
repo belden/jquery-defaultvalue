@@ -1,25 +1,31 @@
 /**
 *	@name							Defaultvalue
-*	@descripton						
-*	@version						1.1
-*	@requires						Jquery 1.2.6+
-*	@author							Jan Jarfalk jan.jarfalk@unwrongest.com
+*	@descripton						Gives value to empty inputs
+*	@version						1.2
+*	@requires						Jquery 1.3.2
+*
+*	@author							Jan Jarfalk
+*	@author-email					jan.jarfalk@unwrongest.com
+*	@author-website					http://www.unwrongest.com
+*
 *	@licens							MIT License - http://www.opensource.org/licenses/mit-license.php
 *
 *	@param {String} str				The default value
+*	@param {Function} callback		Callback function
 */
 
 (function(jQuery){
      jQuery.fn.extend({
-         defaultValue: function(str) {	
+         defaultValue: function(str, callback) {	
             return this.each(function() {
 				
-				var $input			=	$(this),
-					defaultValue	=	str || $input.attr('rel');
+				var $input				=	$(this),
+					defaultValue		=	str || $input.attr('rel'),
+					callbackArguments 	=	{'input':$input};
 					
 					
 				if( $input.attr('type') == 'password' ) {
-					handlePasswordInput();	
+					handlePasswordInput();
 				} else {
 					handleTextInputs();
 				}
@@ -28,6 +34,10 @@
 				
 					// Create clone and switch
 					var $clone = createClone();
+					
+					// Add clone to callback arguments
+					callbackArguments.clone = $clone;
+					
 					$clone.insertAfter($input);
 					$input.hide();
 					
@@ -47,7 +57,7 @@
 					setState();
 					
 					// Events for non-password fields
-					$input.keypress( function () {
+					$input.keyup( function () {
 						if( $input.val().length > 0 ) {
 							setState();
 						}
@@ -65,7 +75,8 @@
 				function setState(){
 					val = jQuery.trim($input.val());
 					if( val.length <= 0 || val == defaultValue ) {
-						$input.val(defaultValue).addClass('empty');
+						$input.val(defaultValue);
+						$input.addClass('empty');
 					} else {
 						$input.removeClass('empty');
 					}
@@ -95,10 +106,14 @@
 							$input.focus();
 						}, 1);
 					
-					});
-								
+					});				
+					
 					return $el;
 				}
+				
+				if(callback){
+					callback(callbackArguments);
+				}	
 				
             });
         }
