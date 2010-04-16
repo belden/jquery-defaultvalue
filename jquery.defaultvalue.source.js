@@ -62,12 +62,13 @@
 							'type'	: 'text'
 						});
 					} else if($input.context.nodeName.toLowerCase() == 'textarea') {
-						$el = jQuery("<textarea />");		
+						$el = jQuery("<textarea />");	
 					}
 					
 					$el.attr({
 						'value'	: defaultValue,
 						'class'	: $input.attr('class')+' empty',
+						'size'	: $input.attr('size'),
 						'style'	: $input.attr('style'),
 						'tabindex' : $input.attr('tabindex')
 					});
