@@ -62,7 +62,7 @@
 							'type'	: 'text'
 						});
 					} else if($input.context.nodeName.toLowerCase() == 'textarea') {
-						$el = jQuery("<textarea />").attr();					
+						$el = jQuery("<textarea />");		
 					}
 					
 					$el.attr({
