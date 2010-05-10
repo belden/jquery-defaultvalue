@@ -11,31 +11,39 @@
 			<p>
 				<label>Username</label>
 				<span class="w">
-					<input id="username" type="text" class="input" />
+					<input id="username" type="text" class="input" rel="Username" />
+				</span>
+			</p>
+			<p>
+				<label>Email</label>
+				<span class="w">
+					<input id="email" type="text" class="input" rel="Email" />
 				</span>
 			</p>
 			<p>
 				<label>Password</label>
 				<span class="w">
-					<input id="password" type="password" class="input" />
+					<input id="password" rel="Password" type="password" class="input" />
 				</span>
 			</p>
 			<p>
 				<label>Description</label>
 				<span class="w">
-					<textarea id="desc" class="input"></textarea>
+					<textarea id="desc" rel="Keep it short.." class="input"></textarea>
 				</span>
 			</p>
 		</div>
-
 		<script src="dependencies/jquery.js" type="text/javascript" charset="utf-8"></script>
-		<script src="jquery.defaultvalue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="dependencies/jquery.lazy.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			// <![CDATA[
+			$.lazy({
+				src: 'jquery.defaultvalue.source.js',
+				name: 'defaultValue'
+			});
+
 			$(document).ready(function(){			
-				$('#username').defaultValue('John Doe');
-				$('#password').defaultValue('Something secret');
-				$('#desc').defaultValue('Keep it short...');
+				$('input.input').defaultValue();
 			});	
 			// ]]>
 		</script>

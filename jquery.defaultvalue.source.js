@@ -16,15 +16,14 @@
 
 (function(jQuery){
      jQuery.fn.extend({
-         defaultValue: function(options, callback) {
+         defaultValue: function(o, callback) {
+			
+			var options = o || {};
+			var settings = jQuery.extend({
+     			value: options.value || null
+  			}, options);
 			
             return this.each(function(index, element) {
-				
-				var settings = jQuery.extend({
-     					defaultValue: options.value
-  					}, options);
-
-				console.log($(this).val());
 				
 				var $input				=	$(this);
 				var	defaultValue		=	settings.value || $input.attr('rel');
