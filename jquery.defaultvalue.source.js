@@ -16,13 +16,19 @@
 
 (function(jQuery){
      jQuery.fn.extend({
-         defaultValue: function(str, callback) {	
-            return this.each(function() {
+         defaultValue: function(options, callback) {
+			
+            return this.each(function(index, element) {
 				
-				var $input				=	$(this),
-					defaultValue		=	str || $input.attr('rel'),
-					callbackArguments 	=	{'input':$input};
-					
+				var settings = jQuery.extend({
+     					defaultValue: options.value
+  					}, options);
+
+				console.log($(this).val());
+				
+				var $input				=	$(this);
+				var	defaultValue		=	settings.value || $input.attr('rel');
+				var	callbackArguments 	=	{'input':$input};
 					
 				// Create clone and switch
 				var $clone = createClone();
@@ -31,26 +37,19 @@
 				callbackArguments.clone = $clone;
 				
 				$clone.insertAfter($input);
-				$input.hide();
 				
-				// Events for password fields
-				$input.blur(function(){
+				var setState = function() {
 					if( $input.val().length <= 0 ){
 						$clone.show();
 						$input.hide();
-					}
-				});
-				
-				function setState(){
-					val = jQuery.trim($input.val());
-					if( val.length <= 0 || val == defaultValue ) {
-						$input.val(defaultValue);
-						$input.addClass('empty');
 					} else {
-						$input.removeClass('empty');
+						$clone.hide();
+						$input.show();
 					}
-				}
+				};
 				
+				// Events for password fields
+				$input.bind('blur', setState);
 				
 				// Create a input element clone
 				function createClone(){
@@ -66,11 +65,12 @@
 					}
 					
 					$el.attr({
-						'value'	: defaultValue,
-						'class'	: $input.attr('class')+' empty',
-						'size'	: $input.attr('size'),
-						'style'	: $input.attr('style'),
-						'tabindex' : $input.attr('tabindex')
+						'value'		: defaultValue,
+						'class'		: $input.attr('class')+' empty',
+						'size'		: $input.attr('size'),
+						'style'		: $input.attr('style'),
+						'tabindex' 	: $input.attr('tabindex'),
+						'name'		: 'defaultvalue-clone-' + (((1+Math.random())*0x10000)|0).toString(16).substring(1)
 					});
 					
 					$el.focus(function(){
@@ -89,6 +89,8 @@
 					
 					return $el;
 				}
+
+				setState();
 				
 				if(callback){
 					callback(callbackArguments);
