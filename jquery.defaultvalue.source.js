@@ -20,13 +20,13 @@
 			
 			var options = o || {};
 			var settings = jQuery.extend({
-     			value: options.value || null
+     			defaultValue: options.defaultValue || null
   			}, options);
 			
             return this.each(function(index, element) {
 				
 				var $input				=	$(this);
-				var	defaultValue		=	settings.value || $input.attr('rel');
+				var	defaultValue		=	settings.value || $input.attr('data-defaultValue');
 				var	callbackArguments 	=	{'input':$input};
 					
 				// Create clone and switch
