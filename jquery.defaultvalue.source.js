@@ -1,11 +1,12 @@
 /**
 *	@name							Defaultvalue
 *	@descripton						Gives value to empty inputs
-*	@version						1.3.1
+*	@version						1.4
 *	@requires						Jquery 1.3.2
 *
 *	@author							Jan Jarfalk
 *	@author-email					jan.jarfalk@unwrongest.com
+*	@author-twitter					janjarfalk
 *	@author-website					http://www.unwrongest.com
 *
 *	@licens							MIT License - http://www.opensource.org/licenses/mit-license.php
@@ -61,6 +62,8 @@
 						});
 					} else if($input.context.nodeName.toLowerCase() == 'textarea') {
 						$el = jQuery("<textarea />");	
+					} else {
+						throw 'DefaultValue only works with input and textareas'
 					}
 					
 					$el.attr({
