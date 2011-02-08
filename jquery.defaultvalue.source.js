@@ -63,7 +63,7 @@
 					} else if($input.context.nodeName.toLowerCase() == 'textarea') {
 						$el = jQuery("<textarea />");	
 					} else {
-						throw 'DefaultValue only works with input and textareas'
+						throw 'DefaultValue only works with input and textareas'; 
 					}
 					
 					$el.attr({
