@@ -44,7 +44,7 @@
 						$input.hide();
 					} else {
 						$clone.hide();
-						$input.show();
+						$input.show().trigger('click');
 					}
 				};
 				
