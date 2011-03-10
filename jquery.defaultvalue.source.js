@@ -26,9 +26,16 @@
 			
             return this.each(function(index, element) {
 				
+				if($(this).data('defaultValued')){
+					return false;
+				}
+				
 				var $input				=	$(this);
 				var	defaultValue		=	settings.value || $input.attr('data-defaultValue');
 				var	callbackArguments 	=	{'input':$input};
+				
+				// Mark as defaultvalued
+				$input.data('defaultValued', true);
 					
 				// Create clone and switch
 				var $clone = createClone();
