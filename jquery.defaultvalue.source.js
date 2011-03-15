@@ -19,6 +19,11 @@
      jQuery.fn.extend({
          defaultValue: function(o, callback) {
 			
+			if('placeholder' in this[0]){
+				return false;
+			}
+
+			
 			var options = o || {};
 			var settings = jQuery.extend({
      			defaultValue: options.defaultValue || null
@@ -31,7 +36,7 @@
 				}
 				
 				var $input				=	$(this);
-				var	defaultValue		=	settings.value || $input.attr('data-defaultValue');
+				var	defaultValue		=	settings.value || $input.attr('placeholder');
 				var	callbackArguments 	=	{'input':$input};
 				
 				// Mark as defaultvalued
