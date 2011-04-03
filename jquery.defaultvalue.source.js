@@ -1,7 +1,7 @@
 /**
 *	@name							Defaultvalue
 *	@descripton						Gives value to empty inputs
-*	@version						1.4
+*	@version						1.4.1
 *	@requires						Jquery 1.3.2
 *
 *	@author							Jan Jarfalk
@@ -18,10 +18,6 @@
 (function(jQuery){
      jQuery.fn.extend({
          defaultValue: function(o, callback) {
-			
-			if('placeholder' in this[0]){
-				return false;
-			}
 			
             return this.each(function(index, element) {
 				
