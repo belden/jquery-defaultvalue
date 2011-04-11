@@ -1,7 +1,7 @@
 /**
 *	@name							Defaultvalue
 *	@descripton						Gives value to empty inputs
-*	@version						1.4.1
+*	@version						1.4.2
 *	@requires						Jquery 1.3.2
 *
 *	@author							Jan Jarfalk
@@ -11,16 +11,27 @@
 *
 *	@licens							MIT License - http://www.opensource.org/licenses/mit-license.php
 *
-*	@param {String} str				The default value
 *	@param {Function} callback		Callback function
 */
 
 (function(jQuery){
      jQuery.fn.extend({
-         defaultValue: function(o, callback) {
+         defaultValue: function(callback) {
+
+			var nativePlaceholderSupport = (function(){
+				var i = document.createElement('input');
+				return ('placeholder' in i);
+			})();
+				
+			// Default Value will halt here if the browser
+			// has native support for the placeholder attribute
+			if(nativePlaceholderSupport){
+				return false;
+			}
 			
             return this.each(function(index, element) {
 				
+				// Executing Default Value twice on an element will lead to trouble
 				if($(this).data('defaultValued')){
 					return false;
 				}
