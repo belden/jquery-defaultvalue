@@ -37,8 +37,9 @@
 		<script src="jquery.defaultvalue.source.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			// <![CDATA[
-			$(document).ready(function(){
-				$('.input').defaultValue();
+			$.noConflict();
+			jQuery(document).ready(function(){
+				jQuery('.input').defaultValue();
 			});	
 			// ]]>
 		</script>

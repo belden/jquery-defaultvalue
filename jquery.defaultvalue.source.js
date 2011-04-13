@@ -14,8 +14,8 @@
 *	@param {Function} callback		Callback function
 */
 
-(function(jQuery){
-     jQuery.fn.extend({
+(function($){
+     $.fn.extend({
          defaultValue: function(callback) {
 
 			var nativePlaceholderSupport = (function(){
@@ -70,11 +70,11 @@
 					var $el;
 					
 					if($input.context.nodeName.toLowerCase() == 'input') {
-						$el = jQuery("<input />").attr({
+						$el = $("<input />").attr({
 							'type'	: 'text'
 						});
 					} else if($input.context.nodeName.toLowerCase() == 'textarea') {
-						$el = jQuery("<textarea />");	
+						$el = $("<textarea />");	
 					} else {
 						throw 'DefaultValue only works with input and textareas'; 
 					}
@@ -85,6 +85,8 @@
 						'size'		: $input.attr('size'),
 						'style'		: $input.attr('style'),
 						'tabindex' 	: $input.attr('tabindex'),
+						'rows' 		: $input.attr('rows'),
+						'cols'		: $input.attr('cols'),
 						'name'		: 'defaultvalue-clone-' + (((1+Math.random())*0x10000)|0).toString(16).substring(1)
 					});
 					
