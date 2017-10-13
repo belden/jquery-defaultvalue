@@ -1,0 +1,12 @@
+{
+  "name": "jquery-defaultvalue",
+  "version": "rn-1.4.2",
+  "homepage": "https://github.com/belden/jquery-defaultvalue",
+  "authors": [
+    "Jan Järfalk <jan@jarfalk.se>"
+  ],
+  "description": "Provides a default value for html text inputs",
+  "main": "./jquery.defaultvalue.source.js",
+  "private": true,
+  "license": "MIT"
+}
